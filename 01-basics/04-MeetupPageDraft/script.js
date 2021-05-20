@@ -4,7 +4,9 @@ import Vue from './vendor/vue.esm.browser.js';
 const API_URL = 'https://course-vue.javascript.ru/api';
 
 /** ID митапа для примера; используйте его при получении митапа */
-const MEETUP_ID = 6;
+const MEETUP_ID = 1;
+
+const iconPath = `/assets/icons/icon-`;
 
 /**
  * Возвращает ссылку на изображение по идентификатору, например, изображение митапа
@@ -14,6 +16,8 @@ const MEETUP_ID = 6;
 function getImageUrlByImageId(imageId) {
   return `${API_URL}/images/${imageId}`;
 }
+
+const fetchMeetup = () => fetch(`https://course-vue.javascript.ru/api/meetups/${MEETUP_ID}`).then(response => response.json());
 
 /**
  * Словарь заголовков по умолчанию для всех типов пунктов программы
@@ -45,3 +49,45 @@ const agendaItemIcons = {
 };
 
 // Требуется создать Vue приложение
+
+const app = new Vue({
+  el: '#app',
+  data(){
+    return {
+      meetup: {},
+      rawMeetup: null
+    }
+  },
+  methods:{
+    setAgendaTitle(agendaItem){
+        for (let key of Object.keys(agendaItemDefaultTitles)) {
+          if(agendaItem.type == key){
+            return agendaItemDefaultTitles[key];
+          }
+        }
+    },
+    setAgendaIcon(agendaItem){
+      for (let key of Object.keys(agendaItemIcons)) {
+        if(agendaItem.type == key){
+          return `${iconPath}${agendaItemIcons[key]}.svg`;
+        }
+      }
+    },
+    makeData(date){
+      return new Date(date).toLocaleString(navigator.language, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+  },
+  computed:{
+  },
+  async mounted(){
+    await fetchMeetup().then(meetup => {
+      this.rawMeetup = meetup;
+    })
+  }
+});
+
+app.$mount('app');

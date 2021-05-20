@@ -12,30 +12,32 @@
 <div id="app">
   <div>
     <div class="meetup-cover">
-      <h1 class="meetup-cover__title">Название митапа</h1>
+      <h1 class="meetup-cover__title">{{ rawMeetup.title }}</h1>
     </div>
 
     <div class="container">
       <div class="meetup">
         <div class="meetup__content">
           <h3>Описание</h3>
-          <p class="meetup-description">Описание митапа</p>
+          <p class="meetup-description">{{ rawMeetup.description }}</p>
 
           <h3>Программа</h3>
           <p class="meetup-agenda__empty">Программа пока пуста, но когда-нибудь в ней обязательно что-нибудь появится!</p>
-          <div class="meetup-agenda">
-            <div class="meetup-agenda__item">
-              <div class="meetup-agenda__item-col">
-                <img class="icon" alt="icon" src="/assets/icons/icon-cal-sm.svg" />
+          <div v-for="agendaItem in rawMeetup.agenda">
+            <div class="meetup-agenda">
+              <div class="meetup-agenda__item">
+                <div class="meetup-agenda__item-col">
+                  <img class="icon" alt="icon" :src="setAgendaIcon(agendaItem)" />
+                </div>
+                <div class="meetup-agenda__item-col">{{ agendaItem.startsAt }} - {{ agendaItem.endsAt }}</div>
+                <div class="meetup-agenda__item-col">
+                  <h5 class="meetup-agenda__title">{{ setAgendaTitle(agendaItem) }}</h5>
+                  <p><span>{{ agendaItem.speaker }}</span><span v-show="agendaItem.language" class="meetup-agenda__dot"></span><span class="meetup-agenda__lang">{{ agendaItem.language }}</span></p>
+                  <p>{{ agendaItem.description }}</p>
+                </div>
               </div>
-              <div class="meetup-agenda__item-col">00:00 - 00:00</div>
-              <div class="meetup-agenda__item-col">
-                <h5 class="meetup-agenda__title">Название доклада</h5>
-                <p><span>Докладчик</span><span class="meetup-agenda__dot"></span><span class="meetup-agenda__lang">RU</span></p>
-                <p>Описание доклада</p>
-              </div>
-            </div>
 
+            </div>
           </div>
         </div>
 
@@ -43,15 +45,15 @@
           <ul class="info-list">
             <li>
               <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-user.svg" />
-              Организатор
+              {{ rawMeetup.organizer }}
             </li>
             <li>
               <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-map.svg" />
-              Место
+              {{ rawMeetup.place }}
             </li>
             <li>
               <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-              <time datetime="2020-02-31">31 фев. 2020</time>
+              <time datetime="2020-02-31">{{ makeData(rawMeetup.date) }}</time>
             </li>
           </ul>
         </div>
@@ -60,6 +62,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12" ></script>
 <script type="module" src="script.js"></script>
 </body>
 </html>
