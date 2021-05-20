@@ -12,9 +12,9 @@
 <body>
 
 <div id="app">
-  <input type="text" v-model="searchedEmail"/>
-  <ul v-for="email in emails">
-    <li v-bind:class="{ marked : markedEmails }">{{ email }}</li>
+  <input type="text" v-model="marker" />
+  <ul>
+    <li v-for="{ email, marked } in markedEmails" :class="{ marked }">{{ email }}</li>
   </ul>
 </div>
 

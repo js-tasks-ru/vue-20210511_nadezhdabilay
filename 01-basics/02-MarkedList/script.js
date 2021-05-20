@@ -29,27 +29,20 @@ const emails = [
   'Isaias_Kuhic@jarrett.net',
 ];
 
-const app = new Vue({
-  el: '#app',
-  data(){
+new Vue({
+  data() {
     return {
+      marker: '',
       emails,
-      searchedEmail: null,
-    }
+    };
   },
+
   computed: {
-    markedEmails(){
-        emails.filter((item, index) => {
-          if(this.searchedEmail != null && item.includes(this.searchedEmail)){
-            console.log(item);
-            return item;
-          }
-          return false;
-        })
-      }
-  }
-});
-
-app.$mount('app');
-
-// Требуется создать Vue приложение
+    markedEmails() {
+      return this.emails.map((email) => ({
+        email,
+        marked: Boolean(this.marker) && email.includes(this.marker),
+      }));
+    },
+  },
+}).$mount('#app');
