@@ -17,7 +17,7 @@ function getImageUrlByImageId(imageId) {
   return `${API_URL}/images/${imageId}`;
 }
 
-const fetchMeetup = () => fetch(`https://course-vue.javascript.ru/api/meetups/${MEETUP_ID}`).then(response => response.json());
+const fetchMeetup = () => fetch(`${API_URL}/meetups/${MEETUP_ID}`).then(response => response.json());
 
 /**
  * Словарь заголовков по умолчанию для всех типов пунктов программы
@@ -79,6 +79,9 @@ const app = new Vue({
         month: 'long',
         day: 'numeric'
       });
+    },
+    setBackgroundImg(imgId){
+      return getImageUrlByImageId(imgId);
     }
   },
   computed:{

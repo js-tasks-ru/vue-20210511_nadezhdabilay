@@ -28,6 +28,7 @@ const emails = [
   'Jeffery@juwan.us',
   'Isaias_Kuhic@jarrett.net',
 ];
+<<<<<<< HEAD
 
 const app = new Vue({
   el: '#app',
@@ -51,5 +52,23 @@ const app = new Vue({
 });
 
 app.$mount('app');
+=======
+>>>>>>> 2296fb6cd3d5c0d33240f2815247077dbfe7d1ef
 
-// Требуется создать Vue приложение
+new Vue({
+  data() {
+    return {
+      marker: '',
+      emails,
+    };
+  },
+
+  computed: {
+    markedEmails() {
+      return this.emails.map((email) => ({
+        email,
+        marked: Boolean(this.marker) && email.includes(this.marker),
+      }));
+    },
+  },
+}).$mount('#app');
