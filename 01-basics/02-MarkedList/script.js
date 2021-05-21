@@ -28,32 +28,6 @@ const emails = [
   'Jeffery@juwan.us',
   'Isaias_Kuhic@jarrett.net',
 ];
-<<<<<<< HEAD
-
-const app = new Vue({
-  el: '#app',
-  data(){
-    return {
-      emails,
-      searchedEmail: null,
-    }
-  },
-  computed: {
-    markedEmails(){
-        emails.filter((item, index) => {
-          if(this.searchedEmail != null && item.includes(this.searchedEmail)){
-            console.log(item);
-            return item;
-          }
-          return false;
-        })
-      }
-  }
-});
-
-app.$mount('app');
-=======
->>>>>>> 2296fb6cd3d5c0d33240f2815247077dbfe7d1ef
 
 new Vue({
   data() {

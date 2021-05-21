@@ -12,19 +12,12 @@
 <body>
 
 <div id="app">
-<<<<<<< HEAD
-  <input type="text" v-model="searchedEmail"/>
-  <ul v-for="email in emails">
-    <li v-bind:class="{ marked : markedEmails }">{{ email }}</li>
-=======
   <input type="text" v-model="marker" />
   <ul>
     <li v-for="{ email, marked } in markedEmails" :class="{ marked }">{{ email }}</li>
->>>>>>> 2296fb6cd3d5c0d33240f2815247077dbfe7d1ef
   </ul>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12" ></script>
 <script type="module" src="script.js"></script>
 </body>
 </html>
