@@ -54,54 +54,47 @@ const app = new Vue({
   el: '#app',
   data(){
     return {
-      meetup: {},
-      rawMeetup: {},
-      imageId: null,
-      date: null
+      meetup: null,
+      rawMeetup: null,
     }
   },
   methods:{
-    makeAgendaMethod(array) {
-      array.map(item => {
-        item.agendaTitle = this.setAgendaTitle(item);
-        item.agendaIcon = this.setAgendaIcon(item);
-      });
-      return array;
+    makeAgendaTitle(item){
+      return agendaItemDefaultTitles[item.type];
     },
-    setAgendaTitle(item){
-        for (let key of Object.keys(agendaItemDefaultTitles)) {
-          if(item.type == key){
-            return agendaItemDefaultTitles[key];
-          }
-        }
-    },
-    setAgendaIcon(item){
-      for (let key of Object.keys(agendaItemIcons)) {
-        if(item.type == key){
-          return `${iconPath}${agendaItemIcons[key]}.svg`;
-        }
-      }
+    makeAgendaIcon(item){
+      return `${iconPath}${agendaItemIcons[item.type]}.svg`;
     }
   },
   computed:{
-    backgroundImg(){
-      return getImageUrlByImageId(this.imageId);
+    style(){
+      if(this.rawMeetup.imageId){
+        return `--bg-url: url(${getImageUrlByImageId(this.rawMeetup.imageId)})`;
+      }
     },
-    makeData(){
-      return new Date(this.date).toLocaleString(navigator.language, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+    localeData(){
+      if(this.rawMeetup.date){
+        return new Date(this.rawMeetup.date).toLocaleString(navigator.language, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
     },
     agenda(){
-      return this.makeAgendaMethod(this.rawMeetup.agenda);
+      if(this.rawMeetup.agenda){
+        return this.rawMeetup.agenda.map((agendaItem) => ({
+          ...agendaItem,
+          agendaTitle: this.makeAgendaTitle(agendaItem),
+          agendaIcon: this.makeAgendaIcon(agendaItem)
+        }));
+      } else {
+        return;
+      }
     }
   },
   async mounted(){
     await fetchMeetup().then(meetup => {
-      this.imageId = meetup.imageId;
-      this.date = meetup.date;
       this.rawMeetup = meetup;
     })
   }
