@@ -55,39 +55,53 @@ const app = new Vue({
   data(){
     return {
       meetup: {},
-      rawMeetup: null
+      rawMeetup: {},
+      imageId: null,
+      date: null
     }
   },
   methods:{
-    setAgendaTitle(agendaItem){
+    makeAgendaMethod(array) {
+      array.map(item => {
+        item.agendaTitle = this.setAgendaTitle(item);
+        item.agendaIcon = this.setAgendaIcon(item);
+      });
+      return array;
+    },
+    setAgendaTitle(item){
         for (let key of Object.keys(agendaItemDefaultTitles)) {
-          if(agendaItem.type == key){
+          if(item.type == key){
             return agendaItemDefaultTitles[key];
           }
         }
     },
-    setAgendaIcon(agendaItem){
+    setAgendaIcon(item){
       for (let key of Object.keys(agendaItemIcons)) {
-        if(agendaItem.type == key){
+        if(item.type == key){
           return `${iconPath}${agendaItemIcons[key]}.svg`;
         }
       }
+    }
+  },
+  computed:{
+    backgroundImg(){
+      return getImageUrlByImageId(this.imageId);
     },
-    makeData(date){
-      return new Date(date).toLocaleString(navigator.language, {
+    makeData(){
+      return new Date(this.date).toLocaleString(navigator.language, {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       });
     },
-    setBackgroundImg(imgId){
-      return getImageUrlByImageId(imgId);
+    agenda(){
+      return this.makeAgendaMethod(this.rawMeetup.agenda);
     }
-  },
-  computed:{
   },
   async mounted(){
     await fetchMeetup().then(meetup => {
+      this.imageId = meetup.imageId;
+      this.date = meetup.date;
       this.rawMeetup = meetup;
     })
   }

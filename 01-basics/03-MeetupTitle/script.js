@@ -4,17 +4,16 @@ const app = new Vue({
   el: '#app',
   data(){
     return {
-      meetup: {}
+      meetup: null,
+      meetupTitle: ''
     }
   },
-  methods:{
-    async onChecked(){
-      let title = await fetch(`https://course-vue.javascript.ru/api/meetups/${this.meetup.id}`).then(response => response.json()).then(data => { return data.title });
-      this.meetup.title = title;
+  watch: {
+    meetup: async function (id) {
+      let title = await fetch(`https://course-vue.javascript.ru/api/meetups/${id}`).then(response => response.json()).then(data => { return data.title });
+      this.meetupTitle = title;
     }
   }
 });
 
 app.$mount('app');
-
-// Требуется создать Vue приложение

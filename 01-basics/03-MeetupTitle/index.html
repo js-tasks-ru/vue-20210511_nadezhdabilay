@@ -7,19 +7,12 @@
 <body>
 
 <div id="app">
-  <input type="radio" :value="{id: 1, title: meetup.title}" v-model="meetup" @change="onChecked">
-  <label>1</label>
-  <input type="radio" :value="{id: 2, title: meetup.title}" v-model="meetup" @change="onChecked">
-  <label>2</label>
-  <input type="radio" :value="{id: 3, title: meetup.title}" v-model="meetup" @change="onChecked">
-  <label>3</label>
-  <input type="radio" :value="{id: 4, title: meetup.title}" v-model="meetup" @change="onChecked">
-  <label>4</label>
-  <input type="radio" :value="{id: 5, title: meetup.title}" v-model="meetup" @change="onChecked">
-  <label>5</label>
-
+  <span v-for="i in 5">
+    <input type="radio" :value="i" v-model="meetup">
+    <label>{{ i }}</label>
+  </span>
   <hr>
-  <span>{{meetup.title}} </span>
+  <span>{{ meetupTitle }} </span>
 </div>
 
 <script type="module" src="script.js"></script>

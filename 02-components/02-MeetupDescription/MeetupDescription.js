@@ -2,8 +2,7 @@ const MeetupDescription = {
   name: 'MeetupDescription',
   props: {
     description: {
-      type: String,
-      default: null
+      type: String
     }
   },
 
