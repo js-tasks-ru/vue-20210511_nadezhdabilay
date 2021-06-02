@@ -1,13 +1,44 @@
 <template>
-  <div class="form-group">
-    <label class="form-label">Label</label>
-    <!-- <input /> -->
+  <div :class="classes">
+    <div v-if="label">
+      <label class="form-label">{{ label }}</label>
+    </div>
+    <slot></slot>
+    <input :placeholder="inputText"/>
   </div>
 </template>
 
 <script>
 export default {
   name: 'FormGroup',
+
+  props: {
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+    label: {
+      type: String
+    },
+  },
+
+  computed:{
+    classes(){
+      if (this.inline){
+        return "form-group form-group_inline";
+      }
+      return "form-group";
+    },
+    inputText(){
+      if(this.label){
+        return "With label";
+      }
+      else if(this.inline){
+        return "Inline";
+      }
+      return "No label";
+    }
+  }
 };
 </script>
 
@@ -15,6 +46,7 @@ export default {
 .form-group {
   position: relative;
   margin-bottom: 24px;
+  display: block;
 }
 
 .form-group.form-group_inline {
