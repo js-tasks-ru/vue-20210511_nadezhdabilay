@@ -24,13 +24,10 @@ const MeetupAgendaItem = {
     }
   },
   computed: {
-    agendaItemModified() {
-      const newItem = {
-        ...this.agendaItem,
-        agendaTitle: this.makeAgendaTitle(this.agendaItem),
-        agendaIcon: this.makeAgendaIcon(this.agendaItem)
-      }
-      return newItem;
+    agendaItemModified(){
+      this.agendaItem.agendaTitle = this.makeAgendaTitle(this.agendaItem);
+      this.agendaItem.agendaIcon = this.makeAgendaIcon(this.agendaItem);
+      return this.agendaItem;
     }
   },
 

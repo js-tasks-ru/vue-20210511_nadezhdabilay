@@ -1,32 +1,12 @@
 <template>
   <div id="app" class="page container">
-    <form-group>
-      <div class="input-group">
-        <input class="form-control" placeholder="No label" />
-      </div>
-    </form-group>
-
+    <form-group/>
     <hr />
-
-    <form-group label="Label Text">
-      <div class="input-group">
-        <input class="form-control" placeholder="With label" />
-      </div>
-    </form-group>
-
+    <form-group label="Label Text"/>
     <hr />
-
     <p>
-      <form-group inline>
-        <div class="input-group">
-          <input class="form-control" placeholder="Inline" />
-        </div>
-      </form-group>
-      <form-group inline>
-        <div class="input-group">
-          <input class="form-control" placeholder="Inline" />
-        </div>
-      </form-group>
+      <form-group inline/>
+      <form-group inline/>
     </p>
   </div>
 </template>

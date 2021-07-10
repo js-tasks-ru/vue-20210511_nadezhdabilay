@@ -37,12 +37,12 @@ const MeetupView = {
         <div class="meetup">
           <div class="meetup__content">
             <h3>Описание</h3>
-            <meetup-description :description="meetup.description"/>
+            <meetup-description :description="this.meetup.description"/>
             <h3>Программа</h3>
-            <meetup-agenda :agenda="meetup.agenda"/>
+            <meetup-agenda :agenda="this.meetup.agenda"/>
           </div>
           <div class="meetup__aside">
-            <meetup-info :organizer="meetup.organizer" :place="this.meetup.place" :date="locDate"/>
+            <meetup-info :organizer="this.meetup.organizer" :place="this.meetup.place" :date="locDate"/>
           </div>
         </div>
       </div>
